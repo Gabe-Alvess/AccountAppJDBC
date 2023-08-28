@@ -103,11 +103,11 @@ public class AccountApp {
 
             if (scanner.hasNextInt()) {
                 userChoice = scanner.nextInt();
-                scanner.nextLine(); // Consuming the newline character after reading the number
+                scanner.nextLine();
             } else {
                 System.out.println("ONLY NUMBERS ALLOWED!");
-                scanner.nextLine(); // Consume the invalid input
-                continue; // Restart the loop
+                scanner.nextLine();
+                continue;
             }
 
             switch (userChoice) {

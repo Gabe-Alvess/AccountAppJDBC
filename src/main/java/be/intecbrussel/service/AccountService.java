@@ -3,6 +3,7 @@ package be.intecbrussel.service;
 import be.intecbrussel.modal.Account;
 import be.intecbrussel.repository.AccountRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class AccountService {
@@ -28,5 +29,9 @@ public class AccountService {
 
     public boolean deleteUser(String userEmail) {
         return accountRepository.wipeUser(userEmail);
+    }
+
+    public boolean createManyAccounts(List<Account> accountList) {
+        return accountRepository.createManyAccounts(accountList);
     }
 }

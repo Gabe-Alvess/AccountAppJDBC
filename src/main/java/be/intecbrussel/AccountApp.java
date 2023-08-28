@@ -1,14 +1,17 @@
 package be.intecbrussel;
 
+import be.intecbrussel.modal.Account;
 import be.intecbrussel.modal.User;
-import be.intecbrussel.service.LoggingService;
+import be.intecbrussel.service.LoginService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class AccountApp {
     private static User currentUser;
-    private static LoggingService loggingService = new LoggingService();
+    private static LoginService loginService = new LoginService();
 
     public static void main(String[] args) {
         mainMenu();
@@ -33,6 +36,7 @@ public class AccountApp {
             }
 
             switch (userChoice) {
+                case -9 -> adminLogin();
                 case 1 -> register();
                 case 2 -> login();
                 case 3 -> {
@@ -52,7 +56,7 @@ public class AccountApp {
 
         loop:
         while (true) {
-            System.out.println("Menu: 1. Account info - 2. Change email - 3. Change password - 4. Logout - 5. Delete account - 6. Delete user info");
+            System.out.println("Menu: 1. Account info - 2. Change Name - 3. Change email - 4. Change password - 5. Delete account - 6. Delete user info - 7. Logout");
 
             if (scanner.hasNextInt()) {
                 userChoice = scanner.nextInt();
@@ -65,13 +69,9 @@ public class AccountApp {
 
             switch (userChoice) {
                 case 1 -> accountInfo();
-                case 2 -> changeEmail();
-                case 3 -> changePass();
-                case 4 -> {
-                    if (logout()) {
-                        break loop;
-                    }
-                }
+                case 2 -> changeName();
+                case 3 -> changeEmail();
+                case 4 -> changePass();
                 case 5 -> {
                     if (deleteAccount()) {
                         break loop;
@@ -82,11 +82,45 @@ public class AccountApp {
                         break loop;
                     }
                 }
+                case 7 -> {
+                    if (logout()) {
+                        break loop;
+                    }
+                }
                 default -> System.out.println("WRONG INPUT");
             }
         }
     }
 
+    private static void adminMenu() {
+        System.out.printf("Welcome admin %s %s!\n",currentUser.getFname(), currentUser.getLname());
+        Scanner scanner = new Scanner(System.in);
+        int userChoice = 0;
+
+        loop:
+        while (true) {
+            System.out.println("Menu: 1. Add multiple users - 2. Logout");
+
+            if (scanner.hasNextInt()) {
+                userChoice = scanner.nextInt();
+                scanner.nextLine(); // Consuming the newline character after reading the number
+            } else {
+                System.out.println("ONLY NUMBERS ALLOWED!");
+                scanner.nextLine(); // Consume the invalid input
+                continue; // Restart the loop
+            }
+
+            switch (userChoice) {
+                case 1 -> multiRegister();
+                case 2 -> {
+                    if (logout()) {
+                        break loop;
+                    }
+                }
+                default -> System.out.println("WRONG INPUT!");
+            }
+        }
+    }
 
     private static void register() {
         Scanner scanner = new Scanner(System.in);
@@ -105,12 +139,42 @@ public class AccountApp {
             passw = scanner.nextLine();
         }
 
-        boolean success = loggingService.register(fname, lname, email, passw);
+        boolean success = loginService.register(fname, lname, email, passw);
 
         if (success) {
             System.out.printf("All done %s %s, your account has been successfully registered!\n", fname, lname);
         } else {
-            System.out.println("SOMETHING WENT WRONG!");
+            System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
+        }
+    }
+
+    private static void multiRegister() {
+        List<User> userList = new ArrayList<>();
+
+        for (int i = 5; i > 0; i--) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("first name");
+            String fname = scanner.nextLine();
+
+            System.out.println("last name");
+            String lname = scanner.nextLine();
+
+            System.out.println("email");
+            String email = scanner.nextLine();
+
+            System.out.println("password");
+            String passw = scanner.nextLine();
+
+            User user = new User(fname, lname, new Account(email, passw));
+            userList.add(user);
+        }
+
+        boolean success = loginService.registerManyUsers(userList);
+
+        if (success) {
+            System.out.println("All users successfully registered! ╰(*°▽°*)╯");
+        } else {
+            System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
         }
     }
 
@@ -121,14 +185,79 @@ public class AccountApp {
         System.out.println("What is your password?");
         String passw = scanner.nextLine();
 
-        Optional<User> user = loggingService.loginUser(email, passw);
+        Optional<User> user = loginService.loginUser(email, passw);
 
         if (user.isPresent()) {
             currentUser = user.get();
             loggedInMenu();
-
         } else {
-            System.out.println("ACCOUNT NOT FOUND!");
+            System.out.println("ACCOUNT NOT FOUND! (┬┬﹏┬┬)");
+        }
+    }
+
+    private static void adminLogin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your email?");
+        String email = scanner.nextLine();
+        System.out.println("What is your password?");
+        String passw = scanner.nextLine();
+
+        Optional<User> user = loginService.loginUser(email, passw);
+        String currentEmail = user.isPresent() ? user.get().getAccount().getEmail() : "notAdmin";
+
+        if (user.isPresent() && currentEmail.equals("jean@jean.com")) {
+            currentUser = user.get();
+            adminMenu();
+        } else {
+            System.out.println("(╯▔皿▔)╯ YOU ARE NOT AN ADMIN GO AWAY! ");
+        }
+    }
+
+    private static void changeName() {
+        String userEmail = currentUser.getAccount().getEmail();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("First Name: ");
+        String newFName = scanner.nextLine();
+        System.out.print("Last Name: ");
+        String newLName = scanner.nextLine();
+
+        System.out.println("Do you really want to change your first name and last name? 1. Yes - 2. No");
+        int input = 0;
+
+        loop:
+        while (true) {
+            if (scanner.hasNextInt()) {
+                input = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("ONLY NUMBERS ALLOWED!");
+                scanner.nextLine();
+                continue;
+            }
+
+            switch (input) {
+                case 1 -> {
+                    boolean succes = loginService.changeName(newFName, newLName, userEmail);
+
+                    if (succes) {
+                        currentUser.setFname(newFName);
+                        currentUser.setLname(newLName);
+                        System.out.println("Information successfully changed! ╰(*°▽°*)╯");
+                        System.out.printf("""
+                                First Name: %s
+                                Last Name: %s
+                                """, currentUser.getFname(), currentUser.getLname()
+                        );
+                        break loop;
+                    } else {
+                        System.out.println("SOMETHING WENT WRONG ! (┬┬﹏┬┬)");
+                    }
+                }
+                case 2 -> {
+                    break loop;
+                }
+            }
         }
     }
 
@@ -147,14 +276,13 @@ public class AccountApp {
         System.out.println("Please enter your new email");
         String newEmail = scanner.nextLine();
 
-        boolean success = loggingService.changeUserEmail(currentEmail, newEmail);
+        boolean success = loginService.changeUserEmail(currentEmail, newEmail);
 
         if (success) {
             System.out.println("Your email was successfully changed!");
             currentUser.getAccount().setEmail(newEmail);
         } else {
-            System.out.println("SOMETHING WENT WRONG!");
-            System.out.println("We were not able to change your email");
+            System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
         }
     }
 
@@ -179,14 +307,13 @@ public class AccountApp {
             newPass = scanner.nextLine();
         }
 
-        boolean succes = loggingService.changeUserPassword(currentEmail, newPass);
+        boolean succes = loginService.changeUserPassword(currentEmail, newPass);
 
         if (succes) {
             System.out.println("Your password was successfully changed!");
             currentUser.getAccount().setPassw(newPass);
         } else {
-            System.out.println("SOMETHING WENT WRONG!");
-            System.out.println("We were not able to change your password");
+            System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
         }
     }
 
@@ -269,7 +396,7 @@ public class AccountApp {
 
             switch (input) {
                 case 1 -> {
-                    boolean succes = loggingService.deleteUserAccount(currentEmail);
+                    boolean succes = loginService.deleteUserAccount(currentEmail);
 
                     if (succes) {
                         System.out.printf("We are sorry to see you go %s %s! (┬┬﹏┬┬)", currentUser.getFname(), currentUser.getLname());
@@ -277,6 +404,8 @@ public class AccountApp {
                         currentUser = null;
                         bool = true;
                         break loop;
+                    } else {
+                        System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
                     }
                 }
                 case 2 -> {
@@ -319,7 +448,7 @@ public class AccountApp {
 
             switch (input) {
                 case 1 -> {
-                    boolean succes = loggingService.deleteUserInfo(currentEmail);
+                    boolean succes = loginService.deleteUserInfo(currentEmail);
 
                     if (succes) {
                         System.out.printf("We are sorry to see you go %s %s! (┬┬﹏┬┬)", currentUser.getFname(), currentUser.getLname());
@@ -327,6 +456,8 @@ public class AccountApp {
                         currentUser = null;
                         bool = true;
                         break loop;
+                    } else {
+                        System.out.println("SOMETHING WENT WRONG! (┬┬﹏┬┬)");
                     }
                 }
                 case 2 -> {

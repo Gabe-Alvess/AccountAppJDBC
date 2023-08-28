@@ -5,6 +5,7 @@ import be.intecbrussel.modal.Account;
 import be.intecbrussel.modal.User;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepository implements UserRepo {
@@ -24,7 +25,7 @@ public class UserRepository implements UserRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT CREATE USER!");
+            System.err.println("ERROR: COULD NOT CREATE USER! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -36,7 +37,7 @@ public class UserRepository implements UserRepo {
         Connection connection = MySQLConfig.getConnection();
 
         try (connection) {
-            PreparedStatement ps = connection.prepareStatement("select * from user where accEmail = ?");
+            PreparedStatement ps = connection.prepareStatement("select * from user where accEmail like ?");
 
             ps.setString(1, account.getEmail());
 
@@ -51,10 +52,59 @@ public class UserRepository implements UserRepo {
             }
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT FIND USER!");
+            System.err.println("ERROR: COULD NOT FIND USER! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public boolean changeName(String firstName, String lastName, String email) {
+        int dbResult = 0;
+        Connection connection = MySQLConfig.getConnection();
+
+        try (connection) {
+            PreparedStatement ps = connection.prepareStatement("update user set fname = ?, lname = ? where accEmail = ?;");
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, email);
+
+            dbResult = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("ERROR: COULD NOT CHANGE NAME! (┬┬﹏┬┬)");
+            throw new RuntimeException(e);
+        }
+
+        return dbResult == 1;
+    }
+
+    @Override
+    public boolean createManyUsers(List<User> userList) {
+        Connection connection = MySQLConfig.getConnection();
+        boolean succes = false;
+
+        try (connection) {
+
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?);");
+
+            for (User user : userList) {
+                ps.setLong(1, user.getId());
+                ps.setString(2, user.getFname());
+                ps.setString(3, user.getLname());
+                ps.setString(4, user.getAccount().getEmail());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            succes = true;
+
+        } catch (SQLException e) {
+            System.err.println("IT FAILED! (┬┬﹏┬┬)");
+            throw new RuntimeException(e);
+        }
+
+        return succes;
     }
 }

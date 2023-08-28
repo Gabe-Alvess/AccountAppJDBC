@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class AccountRepository implements AccountRepo {
@@ -23,7 +24,7 @@ public class AccountRepository implements AccountRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT CREATE ACCOUNT!");
+            System.err.println("ERROR: COULD NOT CREATE ACCOUNT! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -49,7 +50,7 @@ public class AccountRepository implements AccountRepo {
             }
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT GET ACCOUNT!");
+            System.err.println("ERROR: COULD NOT GET ACCOUNT! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -69,7 +70,7 @@ public class AccountRepository implements AccountRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT CHANGE EMAIL!");
+            System.err.println("ERROR: COULD NOT CHANGE EMAIL! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -89,7 +90,7 @@ public class AccountRepository implements AccountRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT CHANGE PASSWORD!");
+            System.err.println("ERROR: COULD NOT CHANGE PASSWORD! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -108,7 +109,7 @@ public class AccountRepository implements AccountRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT DELETE ACCOUNT!");
+            System.err.println("ERROR: COULD NOT DELETE ACCOUNT! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
@@ -127,10 +128,36 @@ public class AccountRepository implements AccountRepo {
             dbResult = ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("ERROR: COULD NOT DELETE USER!");
+            System.err.println("ERROR: COULD NOT DELETE USER! (┬┬﹏┬┬)");
             throw new RuntimeException(e);
         }
 
         return dbResult == 1;
+    }
+
+    @Override
+    public boolean createManyAccounts(List<Account> accountList) {
+        Connection connection = MySQLConfig.getConnection();
+        boolean succes = false;
+
+        try (connection) {
+
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Account VALUES (?, ?);");
+
+            for (Account account : accountList) {
+                ps.setString(1, account.getEmail());
+                ps.setString(2, account.getPassw());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            succes = true;
+
+        } catch (SQLException e) {
+            System.err.println("IT FAILED! (┬┬﹏┬┬)");
+            throw new RuntimeException(e);
+        }
+
+        return succes;
     }
 }

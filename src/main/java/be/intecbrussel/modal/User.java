@@ -42,4 +42,14 @@ public class User {
     public Account getAccount() {
         return account;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + fname + '\'' +
+                ", lastName='" + lname + '\'' +
+                ", account=" + account +
+                '}';
+    }
 }

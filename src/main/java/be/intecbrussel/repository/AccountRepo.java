@@ -2,6 +2,7 @@ package be.intecbrussel.repository;
 
 import be.intecbrussel.modal.Account;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepo {
@@ -16,4 +17,6 @@ public interface AccountRepo {
     boolean wipeAccount(String email);
 
     boolean wipeUser(String email);
+
+    boolean createManyAccounts(List<Account> accountList);
 }

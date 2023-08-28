@@ -24,4 +24,12 @@ public class Account {
     public void setPassw(String passw) {
         this.passw = passw;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "email='" + email + '\'' +
+                ", password='" + passw + '\'' +
+                '}';
+    }
 }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class AccountRepository implements AccountRepo {
+public class AccountRepository implements IAccountRepo {
     @Override
     public boolean createAccount(Account account) {
         Connection connection = MySQLConfig.getConnection();

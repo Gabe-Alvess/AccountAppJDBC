@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepository implements UserRepo {
+public class UserRepository implements IUserRepo {
 
     @Override
     public boolean createUser(User user) {

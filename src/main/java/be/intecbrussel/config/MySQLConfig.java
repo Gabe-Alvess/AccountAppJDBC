@@ -12,7 +12,7 @@ public class MySQLConfig {
         String passw = "86211723GLMb";
         String url = "localhost";
         String port = "3306";
-        String database = "accountapp";
+        String database = "accountapp_db";
 
         String connectionString = String.format("jdbc:mysql://%s:%s/%s", url, port, database);
 

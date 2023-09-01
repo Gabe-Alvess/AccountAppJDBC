@@ -5,7 +5,7 @@ import be.intecbrussel.modal.Account;
 import java.util.List;
 import java.util.Optional;
 
-public interface AccountRepo {
+public interface IAccountRepo {
     boolean createAccount(Account account);
 
     Optional<Account> getAccount(String email);

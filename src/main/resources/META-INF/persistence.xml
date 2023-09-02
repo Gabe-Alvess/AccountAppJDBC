@@ -9,7 +9,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/accountapp_db"/>
             <property name="jakarta.persistence.jdbc.user" value="Gabriel Alves"/>
-            <property name="jakarta.persistence.jdbc.password" value="86211723GLMb"/>
+            <property name="jakarta.persistence.jdbc.password" value="14789632"/>
 
             <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

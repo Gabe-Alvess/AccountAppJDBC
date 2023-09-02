@@ -3,38 +3,36 @@ package be.intecbrussel.modal;
 import be.intecbrussel.util.IdGenerator;
 import jakarta.persistence.*;
 
-@Entity(name = "user_tb")
+//@Entity(name = "user_tb")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String fname;
     private String lname;
-    @OneToOne
+//    @OneToOne
     private Account account;
 
     // JDBC Constructors
-//    public User(long id, String fname, String lname, Account account) {
-//        this.id = id;
-//        this.fname = fname;
-//        this.lname = lname;
-//        this.account = account;
-//    }
-//
-//    public User(String fname, String lname, Account account) {
-//        this(IdGenerator.generateId(), fname, lname, account);
-//    }
-
-    public User(String fname, String lname, Account account) {
+    public User(long id, String fname, String lname, Account account) {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.account = account;
     }
 
-    protected User() {
+    public User(String fname, String lname, Account account) {
+        this(IdGenerator.generateId(), fname, lname, account);
     }
-
-
+//
+//    public User(String fname, String lname, Account account) {
+//        this.fname = fname;
+//        this.lname = lname;
+//        this.account = account;
+//    }
+//
+//    protected User() {
+//    }
 
     public String getFname() {
         return fname;

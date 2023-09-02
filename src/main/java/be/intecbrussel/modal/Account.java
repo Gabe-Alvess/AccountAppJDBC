@@ -5,11 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
+//@Entity(name = "account_tb")
 public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+//    @Id
     private String email;
     private String passw;
 
@@ -18,8 +16,8 @@ public class Account {
         this.passw = passw;
     }
 
-    protected Account() {
-    }
+//    protected Account() {
+//    }
 
 
     public String getEmail() {
@@ -38,14 +36,9 @@ public class Account {
         this.passw = passw;
     }
 
-    public long getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + id +
                 ", email='" + email + '\'' +
                 ", passw='" + passw + '\'' +
                 '}';

@@ -5,21 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9847c7ad-5e97-4330-a946-443838789988" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/config/EMFProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IAccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/ILoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/SQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/SQL.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/config/MySQLConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/config/MySQLConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/modal/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/modal/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/modal/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/modal/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/AccountRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/IAccountRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/IUserRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IAccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/ILoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/ILoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +63,26 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="AccountApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="be.intecbrussel.AccountApp" />
+      <module name="AccountAppJDBC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="be.intecbrussel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AccountApp" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

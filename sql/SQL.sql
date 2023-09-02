@@ -2,16 +2,16 @@ show databases;
 create database accountapp;
 use accountapp;
 
-create table User (
+create table user_tb (
   id int primary key,
   fname varchar(50),
   lname varchar(50),
   accEmail  varchar(50),
   
-  foreign key(accEmail) references Account(email)
+  foreign key(accEmail) references account_tb(email)
 );
 
-create table Account (
+create table account_tb (
 	email varchar(50) primary key,
     passw varchar(50) not null
 );
@@ -28,7 +28,7 @@ INSERT INTO user values('4029194', 'Jean', 'Jaccques', 'jean@jean.jean');
 select * from account;
 select * from user;
 
-create user 'Gabriel Alves'@'localhost' identified by '86211723GLMb';
+create user 'Gabriel Alves'@'localhost' identified by '14789632';
 
 grant all privileges on accountapp.* to 'Gabriel Alves'@'localhost';
 

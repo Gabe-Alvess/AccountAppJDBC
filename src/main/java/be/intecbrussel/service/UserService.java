@@ -8,27 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserService {
+public class UserService implements IUserService {
     private final AccountService accountService = new AccountService();
     private final UserRepository userRepository = new UserRepository();
 
+    @Override
     public boolean createUser(User user) {
         boolean success = accountService.createAccount(user.getAccount());
 
         if (success) {
             return userRepository.createUser(user);
         }
+
         return false;
     }
 
+    @Override
     public Optional<User> getUser(Account account) {
         return userRepository.findUser(account);
     }
 
+    @Override
     public boolean changeNameInfo(String newFName, String newLName, String email) {
         return userRepository.changeName(newFName, newLName, email);
     }
 
+    @Override
     public boolean createManyUsers(List<User> userList) {
         List<Account> accountList = new ArrayList<>();
 

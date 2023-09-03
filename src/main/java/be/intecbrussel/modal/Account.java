@@ -1,13 +1,11 @@
 package be.intecbrussel.modal;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-//@Entity(name = "account_tb")
+@Entity(name = "account_tb")
 public class Account {
-//    @Id
+    @Id
     private String email;
     private String passw;
 
@@ -16,8 +14,8 @@ public class Account {
         this.passw = passw;
     }
 
-//    protected Account() {
-//    }
+    protected Account() {
+    }
 
 
     public String getEmail() {

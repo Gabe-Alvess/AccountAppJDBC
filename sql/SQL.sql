@@ -30,6 +30,6 @@ select * from user;
 
 create user 'Gabriel Alves'@'localhost' identified by '14789632';
 
-grant all privileges on accountapp.* to 'Gabriel Alves'@'localhost';
+grant all privileges on accountapp_db.* to 'Gabriel Alves'@'localhost';
 
 flush privileges;

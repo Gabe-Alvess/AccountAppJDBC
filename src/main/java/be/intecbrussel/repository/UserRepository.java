@@ -5,6 +5,8 @@ import be.intecbrussel.config.MySQLConfig;
 import be.intecbrussel.modal.Account;
 import be.intecbrussel.modal.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import java.sql.*;
 import java.util.List;
@@ -38,7 +40,9 @@ public class UserRepository implements IUserRepo {
         EntityManager em = EMFProvider.getEMF().createEntityManager();
 
         try (em) {
-            User user = em.find(User.class, 1);
+            TypedQuery<User> query = em.createQuery("select a from user_tb a join a.account b where b.email = ?1", User.class);
+            query.setParameter(1, account.getEmail());
+            User user = query.getSingleResult();
             return Optional.of(user);
         } catch (RuntimeException e) {
             System.err.println("ERROR: COULD NOT FIND USER! (┬┬﹏┬┬)");

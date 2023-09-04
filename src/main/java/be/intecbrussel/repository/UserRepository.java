@@ -40,12 +40,15 @@ public class UserRepository implements IUserRepo {
         EntityManager em = EMFProvider.getEMF().createEntityManager();
 
         try (em) {
-            TypedQuery<User> query = em.createQuery("select a from user_tb a join a.account b where b.email = ?1", User.class);
+            TypedQuery<User> query = em.createQuery("select u from user_tb u join u.account a where a.email = ?1", User.class);
             query.setParameter(1, account.getEmail());
+
             User user = query.getSingleResult();
+
             return Optional.of(user);
         } catch (RuntimeException e) {
             System.err.println("ERROR: COULD NOT FIND USER! (┬┬﹏┬┬)");
+
             e.printStackTrace();
         }
 
